@@ -1,0 +1,472 @@
+body {
+    font-family: monospace;
+    width: 350px;
+    margin: 0;
+    padding: 0;
+    background-color: #d0e6f9;
+    color: #2c3e50;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+}
+
+/* Hide scrollbar but keep functionality */
+body::-webkit-scrollbar {
+    width: 0;
+    background: transparent; /* Chrome/Safari/Webkit */
+}
+
+html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    width: 350px; /* Match body width */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.container {
+    background-color: #d0e6f9;
+    border: 4px solid #2a4d8f;
+    padding: 15px 15px 60px 15px; /* Increased bottom padding to accommodate footer */
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: 4px 4px 0 #2a4d8f;
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+}
+
+h1, h2 {
+    color: #2a4d8f;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.input-container {
+    margin-bottom: 20px;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    max-height: 200px;
+    opacity: 1;
+    overflow: hidden;
+    transform-origin: top;
+    transform: scaleY(1);
+    will-change: transform, max-height, opacity;
+    position: relative;
+    z-index: 10;
+}
+
+.input-container.hidden {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    transform: scaleY(0);
+    position: absolute;
+    pointer-events: none;
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 2px solid #2a4d8f;
+    background-color: #f0f8ff;
+    resize: vertical;
+    box-sizing: border-box;
+    font-family: monospace;
+    box-shadow: 3px 3px 0 #2a4d8f;
+}
+
+button {
+    background-color: #2a4d8f;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-family: monospace;
+    font-weight: bold;
+    position: relative;
+    box-shadow: 3px 3px 0 #1a3d7f;
+}
+
+button:hover {
+    background-color: #3a5d9f;
+}
+
+button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #1a3d7f;
+}
+
+/* Search container and icon styles */
+.search-container {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #2a4d8f;
+    font-size: 14px;
+    pointer-events: none; /* Ensures clicks pass through to the input */
+    z-index: 20;
+}
+
+#searchBox {
+    width: 100%;
+    padding: 8px 8px 8px 32px; /* Add left padding for the icon */
+    margin-bottom: 0; /* Remove margin as it's now on the container */
+    margin-top: 0; /* Remove margin as it's now on the container */
+    border: 2px solid #2a4d8f;
+    background-color: #f0f8ff;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: monospace;
+    box-shadow: 3px 3px 0 #2a4d8f;
+}
+
+#searchBox:focus {
+    outline: none;
+    border-color: #3a5d9f;
+}
+
+.filter-options {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+.filter-link {
+    color: #2a4d8f;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px 0;
+    font-family: monospace;
+    font-weight: bold;
+    position: relative;
+}
+
+.filter-link:hover {
+    text-decoration: underline;
+}
+
+.filter-link.active {
+    color: #2a4d8f;
+    text-decoration: underline;
+}
+
+.saved-prompts-container {
+    min-height: 50px;
+    margin-top: 15px;
+    margin-bottom: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.prompt-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f8ff;
+    border: 2px solid #2a4d8f;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: move;
+    box-shadow: 3px 3px 0 #2a4d8f;
+}
+
+.prompt-item.drag-over {
+    border: 2px dashed #2a4d8f;
+    background-color: #e0f0ff;
+}
+
+.prompt-item.drag-invalid {
+    border: 2px dashed #8f2a2a;
+    background-color: #ffe0e0;
+    cursor: not-allowed;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.prompt-title {
+    font-weight: bold;
+    margin-right: 10px;
+    flex-grow: 1;
+    font-family: monospace;
+}
+
+.favorite-btn {
+    padding: 5px;
+    margin-left: 5px;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.prompt-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.icon-btn {
+    background-color: transparent;
+    color: #2a4d8f;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+    box-shadow: none;
+}
+
+.add-btn {
+    margin-right: 5px;
+    font-size: 20px;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+
+.add-btn.close {
+    transform: rotate(45deg);
+}
+
+.icon-btn:hover {
+    background-color: #d0e6f9;
+}
+
+.icon-btn:active {
+    transform: none;
+    box-shadow: none;
+}
+
+.button-effect {
+    animation: buttonPop 0.3s ease-out;
+}
+
+@keyframes buttonPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.edit-mode {
+    flex-direction: column;
+}
+
+.edit-title-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.edit-mode input,
+.edit-mode textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 2px solid #2a4d8f;
+    background-color: #f0f8ff;
+    font-family: monospace;
+    box-shadow: 3px 3px 0 #2a4d8f;
+}
+
+.edit-mode .edit-title {
+    flex-grow: 1;
+    margin-right: 10px;
+    margin-bottom: 0;
+}
+
+.edit-mode .edit-favorite-btn {
+    padding: 5px;
+    margin-left: 5px;
+    font-size: 16px;
+    box-shadow: none;
+}
+
+.edit-mode .prompt-actions {
+    align-self: flex-end;
+}
+
+.notification {
+    position: fixed;
+    bottom: 70px; /* Increased from 20px to appear above the footer */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2a4d8f;
+    color: white;
+    padding: 10px 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    font-family: monospace;
+    box-shadow: 3px 3px 0 #1a3d7f;
+    z-index: 1001; /* Higher than any other element to ensure visibility */
+}
+
+.notification.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.settings-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+
+.settings-icon {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.settings-icon:hover {
+    background-color: transparent;
+}
+
+.settings-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 5px;
+    background-color: #f0f8ff;
+    min-width: 160px;
+    border: 2px solid #2a4d8f;
+    z-index: 1000;
+    box-shadow: 3px 3px 0 #2a4d8f;
+}
+
+.settings-dropdown button {
+    color: #2a4d8f;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: monospace;
+    box-shadow: none;
+}
+
+.settings-dropdown button:hover {
+    background-color: #d0e6f9;
+}
+
+.settings-dropdown button:active {
+    transform: none;
+    box-shadow: none;
+}
+
+.show {
+    display: block;
+}
+
+/* Filter buttons with retro style */
+#allPromptsFilter, #favoritesFilter {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #2a4d8f;
+    color: white;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 #1a3d7f;
+}
+
+#allPromptsFilter.active, #favoritesFilter.active {
+    background-color: #3a5d9f;
+    text-decoration: none;
+}
+
+#allPromptsFilter:hover, #favoritesFilter:hover {
+    background-color: #3a5d9f;
+    text-decoration: none;
+}
+
+#allPromptsFilter:active, #favoritesFilter:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #1a3d7f;
+}
+
+/* Prevent hover background on add button too for consistency */
+.add-btn:hover {
+    background-color: transparent;
+}
+
+/* Footer styles */
+.footer {
+    padding: 10px 0;
+    text-align: center;
+    border-top: 1px solid #2a4d8f;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #d0e6f9;
+    margin-top: 20px;
+}
+
+.author-link {
+    color: #2a4d8f;
+    text-decoration: none;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.author-link:hover {
+    text-decoration: underline;
+}
+
+.external-link-icon {
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+/* Add a spacer to maintain consistent spacing */
+.footer-spacer {
+    height: 20px;
+    flex-shrink: 0;
+    width: 100%;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptShelf</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="settings-container">
+            <button id="addPromptBtn" class="icon-btn add-btn" title="Add New Prompt">➕</button>
+            <button id="settingsBtn" class="settings-icon">⚙️</button>
+            <div id="settingsDropdown" class="settings-dropdown">
+              <button id="exportBtn">Export Prompts</button>
+              <button id="importBtn">Import Prompts</button>
+            </div>
+        </div>
+        <h1>PromptShelf</h1>
+        
+        <!-- Input container (hidden by default) -->
+        <div id="inputContainer" class="input-container hidden">
+            <textarea id="promptInput" placeholder="Enter your prompt here"></textarea>
+            <div class="button-row">
+                <button id="savePrompt">Save Prompt</button>
+            </div>
+        </div>
+        
+        <!-- Search box with icon -->
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchBox" placeholder="Search saved prompts...">
+        </div>
+        <div class="filter-options">
+            <a href="#" id="allPromptsFilter" class="filter-link active">All</a>
+            <a href="#" id="favoritesFilter" class="filter-link">Favorites Only</a>
+        </div>
+        <div id="savedPrompts" class="saved-prompts-container"></div>
+        <div id="notification" class="notification"></div>
+        <div class="footer-spacer"></div>
+        <div class="footer">
+            <a href="https://osamatahir.com/my-apps/" target="_blank" class="author-link">Created by Osama Tahir <span class="external-link-icon">↗</span></a>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
